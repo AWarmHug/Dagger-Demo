@@ -1,6 +1,9 @@
 package com.warm.dagger_demo.di.modules;
 
+import com.warm.dagger_demo.view.MainView;
+
 import dagger.Module;
+import dagger.Provides;
 
 /**
  * 作者: 51hs_android
@@ -10,6 +13,17 @@ import dagger.Module;
 @Module
 public class MainModule {
 
+    private MainView mainView;
+
     public MainModule() {
+    }
+
+    public MainModule(MainView mainView) {
+        this.mainView = mainView;
+    }
+
+    @Provides
+    public MainView provideMainView(){
+        return mainView;
     }
 }
