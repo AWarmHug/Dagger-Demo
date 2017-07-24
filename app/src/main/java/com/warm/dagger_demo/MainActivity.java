@@ -6,11 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.warm.dagger_demo.bean.Data;
 import com.warm.dagger_demo.bean.Info;
 import com.warm.dagger_demo.di.components.DaggerMainComponent;
 import com.warm.dagger_demo.di.modules.MainModule;
 import com.warm.dagger_demo.presenter.MainPresenter;
 import com.warm.dagger_demo.view.MainView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -43,14 +46,21 @@ public class MainActivity extends AppCompatActivity implements MainView,View.OnC
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_get:
+                mMainPresenter.clearInfo();
                 mMainPresenter.getInfo();
                 break;
         }
     }
 
     @Override
-    public void getInfoSuccess(Info info) {
-        mTvInfo.append(info.toString());
+    public void clearInfo() {
+        mTvInfo.setText("");
+
+    }
+
+    @Override
+    public void getInfoSuccess(List<Data> datas) {
+        mTvInfo.setText(datas.toString());
 
     }
 }

@@ -2,6 +2,9 @@ package com.warm.dagger_demo.di.modules;
 
 import android.content.Context;
 
+import com.warm.dagger_demo.di.components.ApiComponent;
+import com.warm.dagger_demo.di.components.DaggerApiComponent;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -22,8 +25,17 @@ public class DiAppModule {
     }
 
     @Provides
+    @Singleton
     public Context provideContext(){
         return mContext;
     }
+
+    @Provides
+    @Singleton
+    public ApiComponent provideApiComponent(){
+        return DaggerApiComponent.builder().apiModule(new ApiModule(mContext)).build();
+
+    }
+
 
 }

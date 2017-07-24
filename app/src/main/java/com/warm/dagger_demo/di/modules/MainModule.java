@@ -15,8 +15,6 @@ public class MainModule {
 
     private MainView mainView;
 
-    public MainModule() {
-    }
 
     public MainModule(MainView mainView) {
         this.mainView = mainView;

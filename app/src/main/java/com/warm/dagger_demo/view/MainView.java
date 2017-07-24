@@ -1,6 +1,9 @@
 package com.warm.dagger_demo.view;
 
+import com.warm.dagger_demo.bean.Data;
 import com.warm.dagger_demo.bean.Info;
+
+import java.util.List;
 
 /**
  * 作者: 51hs_android
@@ -11,5 +14,6 @@ import com.warm.dagger_demo.bean.Info;
 public interface MainView {
 
 
-    void getInfoSuccess(Info info);
+    void clearInfo();
+    void getInfoSuccess(List<Data> datas);
 }

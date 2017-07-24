@@ -2,6 +2,7 @@ package com.warm.dagger_demo.di.components;
 
 import com.warm.dagger_demo.MainActivity;
 import com.warm.dagger_demo.di.modules.MainModule;
+import com.warm.dagger_demo.view.MainView;
 
 import dagger.Component;
 
@@ -12,6 +13,7 @@ import dagger.Component;
  */
 @Component(modules = MainModule.class)
 public interface MainComponent {
+
 
     void inject(MainActivity activity);
 

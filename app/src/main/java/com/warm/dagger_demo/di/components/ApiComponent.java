@@ -1,13 +1,9 @@
 package com.warm.dagger_demo.di.components;
 
-import android.content.Context;
-
 import com.warm.dagger_demo.Api;
 import com.warm.dagger_demo.di.modules.ApiModule;
-import com.warm.dagger_demo.di.modules.DiAppModule;
 import com.warm.dagger_demo.presenter.BasePresenter;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -16,16 +12,17 @@ import retrofit2.Retrofit;
 
 /**
  * 作者: 51hs_android
- * 时间: 2017/7/22
+ * 时间: 2017/7/24
  * 简介:
  */
-@Component(modules = {DiAppModule.class})
 @Singleton
-public interface DiAppComponent {
+@Component(modules = {ApiModule.class})
+public interface ApiComponent {
 
-    Context getContext();
+    OkHttpClient getClient();
+    Retrofit getRetrofit();
+    Api getApi();
 
-    ApiComponent getApiComponent();
 
 
 }
