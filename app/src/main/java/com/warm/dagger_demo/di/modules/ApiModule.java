@@ -1,10 +1,8 @@
 package com.warm.dagger_demo.di.modules;
 
 import android.content.Context;
-import android.os.Build;
-import android.util.Log;
 
-import com.warm.dagger_demo.Api;
+import com.warm.dagger_demo.ApiService;
 import com.warm.dagger_demo.BuildConfig;
 import com.warm.dagger_demo.Config;
 import com.warm.dagger_demo.utils.CacheInterceptor;
@@ -48,7 +46,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    public OkHttpClient provideClient( Interceptor cacheInterceptor) {
+    public OkHttpClient provideClient(Interceptor cacheInterceptor) {
         //设置Http缓存
         Cache cache = new Cache(new File(mContext
                 .getExternalCacheDir(), "HttpCache"), 1024 * 1024 * 10);
@@ -75,15 +73,14 @@ public class ApiModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-        Log.d(TAG, "provideRetrofit: ");
         return retrofit;
     }
 
 
     @Provides
     @Singleton
-    public Api provideApi(Retrofit retrofit){
-        return retrofit.create(Api.class);
+    public ApiService provideApi(Retrofit retrofit){
+        return retrofit.create(ApiService.class);
     }
 
 

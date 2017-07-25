@@ -1,12 +1,11 @@
 package com.warm.dagger_demo;
 
 import android.app.Application;
-import android.util.Log;
 
-import com.warm.dagger_demo.di.components.DaggerDiAppComponent;
-import com.warm.dagger_demo.di.components.DiAppComponent;
+import com.warm.dagger_demo.di.components.DaggerAppComponent;
+import com.warm.dagger_demo.di.components.AppComponent;
 import com.warm.dagger_demo.di.modules.ApiModule;
-import com.warm.dagger_demo.di.modules.DiAppModule;
+import com.warm.dagger_demo.di.modules.AppModule;
 
 /**
  * 作者: 51hs_android
@@ -17,16 +16,16 @@ import com.warm.dagger_demo.di.modules.DiAppModule;
 public class DiApp extends Application {
     private static final String TAG = "DiApp";;
 
-    private static DiAppComponent diAppComponent;
+    private static AppComponent appComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        diAppComponent= DaggerDiAppComponent.builder().diAppModule(new DiAppModule(this)).build();
+        appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).apiModule(new ApiModule(this)).build();
     }
 
-    public static DiAppComponent getDiAppComponent(){
-        return diAppComponent;
+    public static AppComponent getAppComponent(){
+        return appComponent;
     }
 
 }

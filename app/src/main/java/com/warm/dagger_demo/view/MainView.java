@@ -1,7 +1,6 @@
 package com.warm.dagger_demo.view;
 
 import com.warm.dagger_demo.bean.Data;
-import com.warm.dagger_demo.bean.Info;
 
 import java.util.List;
 
@@ -14,6 +13,5 @@ import java.util.List;
 public interface MainView {
 
 
-    void clearInfo();
     void getInfoSuccess(List<Data> datas);
 }

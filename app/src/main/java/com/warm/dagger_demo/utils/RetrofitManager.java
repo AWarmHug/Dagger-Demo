@@ -3,7 +3,6 @@ package com.warm.dagger_demo.utils;
 import android.content.Context;
 import android.util.Log;
 
-import com.warm.dagger_demo.Api;
 import com.warm.dagger_demo.Config;
 
 import java.io.File;

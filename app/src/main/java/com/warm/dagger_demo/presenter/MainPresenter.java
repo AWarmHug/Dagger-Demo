@@ -2,6 +2,7 @@ package com.warm.dagger_demo.presenter;
 
 import com.warm.dagger_demo.bean.BaseEntity;
 import com.warm.dagger_demo.bean.Data;
+import com.warm.dagger_demo.data.DataCentre;
 import com.warm.dagger_demo.view.MainView;
 
 import java.util.List;
@@ -24,21 +25,23 @@ import io.reactivex.schedulers.Schedulers;
 public class MainPresenter extends BasePresenter {
 
     private MainView mMainView;
-
+    private DataCentre mDataCentre;
 
     @Inject
-    MainPresenter(MainView mMainView) {
-        this.mMainView = mMainView;
-
+    public MainPresenter(DataCentre dataCentre) {
+        this.mDataCentre = dataCentre;
     }
 
-    public void clearInfo(){
-        mMainView.clearInfo();
+    @Override
+    public void attach(MainView view) {
+        this.mMainView=view;
     }
+
+
 
 
     public void getInfo() {
-        mApi.getDate("Android")
+        mDataCentre.getDate("Android")
                 .filter(new Predicate<BaseEntity<List<Data>>>() {
                     @Override
                     public boolean test(@NonNull BaseEntity<List<Data>> listBaseEntity) throws Exception {

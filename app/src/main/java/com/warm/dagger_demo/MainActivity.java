@@ -1,29 +1,29 @@
 package com.warm.dagger_demo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
+import com.warm.dagger_demo.adapter.DataAdapter;
 import com.warm.dagger_demo.bean.Data;
-import com.warm.dagger_demo.bean.Info;
-import com.warm.dagger_demo.di.components.DaggerMainComponent;
-import com.warm.dagger_demo.di.modules.MainModule;
+import com.warm.dagger_demo.di.components.DaggerActivityComponent;
 import com.warm.dagger_demo.presenter.MainPresenter;
 import com.warm.dagger_demo.view.MainView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements MainView,View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements MainView{
 
     @Inject
     MainPresenter mMainPresenter;
 
-    private Button mBtGet;
-    private TextView mTvInfo;
+    private RecyclerView mRv;
+
+    private  DataAdapter mAdapter;
 
 
 
@@ -31,36 +31,25 @@ public class MainActivity extends AppCompatActivity implements MainView,View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DaggerMainComponent.builder().mainModule(new MainModule(this)).build().inject(this);
+        DaggerActivityComponent.builder().appComponent(DiApp.getAppComponent()).build().inject(this);
+        mMainPresenter.attach(this);
 
 
-        mBtGet= (Button) this.findViewById(R.id.bt_get);
-        mBtGet.setOnClickListener(this);
-        mTvInfo= (TextView) this.findViewById(R.id.tv_info);
-
-
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.bt_get:
-                mMainPresenter.clearInfo();
-                mMainPresenter.getInfo();
-                break;
-        }
-    }
-
-    @Override
-    public void clearInfo() {
-        mTvInfo.setText("");
+        mRv= (RecyclerView) this.findViewById(R.id.rv);
+        List<Data> datas=new ArrayList<>();
+        mAdapter =new DataAdapter(datas);
+        mRv.setAdapter(mAdapter);
+        mRv.setLayoutManager(new LinearLayoutManager(this));
+        mMainPresenter.getInfo();
 
     }
+
+
+
 
     @Override
     public void getInfoSuccess(List<Data> datas) {
-        mTvInfo.setText(datas.toString());
+        mAdapter.refreshAll(datas);
 
     }
 }
